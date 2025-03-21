@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邮箱验证</title>
+    <style>
+        :root {
+            --primary-color: #FFE162;
+            --secondary-color: #90E0EF;
+            --dark-bg: #1A1A1A;
+            --card-radius: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(26,26,26,0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .verify-container {
+            padding: 20px;
+        }
+
+        .verify-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .verify-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .verify-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .email-input {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .code-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .code-input {
+            flex: 1;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .send-button {
+            background: var(--primary-color);
+            color: black;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .send-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .verify-button {
+            width: 100%;
+            background: var(--primary-color);
+            color: black;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .verify-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .verify-tips {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        .resend-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">←</div>
+        <div class="title">邮箱验证</div>
+    </div>
+
+    <div class="verify-container">
+        <div class="verify-card">
+            <div class="verify-title">验证你的邮箱</div>
+            <div class="verify-desc">
+                我们将向你的邮箱发送验证码，请在下方输入验证码完成验证。
+            </div>
+
+            <input type="email" class="email-input" placeholder="请输入邮箱地址" value="user@example.com">
+            
+            <div class="code-group">
+                <input type="text" class="code-input" maxlength="6" placeholder="请输入验证码">
+                <button class="send-button">发送验证码</button>
+            </div>
+
+            <button class="verify-button disabled">验证</button>
+        </div>
+
+        <div class="verify-tips">
+            没有收到验证码？<a href="#" class="resend-link">重新发送</a>
+        </div>
+    </div>
+</body>
+</html>

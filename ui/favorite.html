@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的收藏</title>
+    <style>
+        /* 保持原有的基础样式不变 */
+        :root {
+            --primary-color: #FFE162;
+            --secondary-color: #90E0EF;
+            --dark-bg: #1A1A1A;
+            --card-radius: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .back-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 5px 0;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .filter-tab.active {
+            background-color: var(--primary-color);
+            color: black;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 70px;
+        }
+
+        .favorite-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .favorite-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .favorite-info {
+            padding: 15px;
+        }
+
+        .favorite-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .favorite-desc {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .favorite-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .coins {
+            color: #FFD700;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26,26,26,0.95);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item {
+            text-align: center;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            opacity: 1;
+            color: var(--primary-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            opacity: 0.7;
+        }
+
+        .level-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .level-tag.max {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: black;
+        }
+
+        .user-level {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .level-title {
+            font-weight: bold;
+        }
+
+        .level-number {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 75%;
+        }
+
+        .level-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .pull-refresh {
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            margin-top: -50px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        .load-more {
+            text-align: center;
+            padding: 15px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-bottom: 70px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* 修改加载更多相关样式 */
+        .pull-to-refresh {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            margin: -50px 0 10px;
+        }
+
+        .loading-container {
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .loading-dots span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            animation: loading 1s infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes loading {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">←</div>
+        <div class="title">我的收藏</div>
+    </div>
+
+    <div class="user-level">
+        <div class="level-header">
+            <div class="level-title">当前等级</div>
+            <div class="level-number">Lv.15</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="level-stats">
+            <div>已解锁角色: 12/20</div>
+            <div>距离下一级: 300经验</div>
+        </div>
+    </div>
+
+    <div class="filter-tabs">
+        <div class="filter-tab active">全部</div>
+        <div class="filter-tab">最近</div>
+        <div class="filter-tab">热门</div>
+    </div>
+   
+    <div class="favorites-grid">
+        <div class="favorite-card">
+            <img src="./static/images/nv1.png" class="favorite-image" alt="赛博朋克女孩">
+            <div class="level-tag max">⭐️ Lv.Max</div>
+            <div class="favorite-info">
+                <div class="favorite-name">赛博朋克女孩</div>
+                <div class="favorite-desc">未来科技风格的虚拟伙伴</div>
+                <div class="favorite-stats">
+                    <div class="stat">❤️ 2.8k</div>
+                    <div class="stat coins">🪙 500</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="favorite-card">
+            <img src="./static/images/nv1.png" class="favorite-image" alt="机械天使">
+            <div class="level-tag">⭐️ Lv.15</div>
+            <div class="favorite-info">
+                <div class="favorite-name">机械天使</div>
+                <div class="favorite-desc">科技与艺术的完美融合</div>
+                <div class="favorite-stats">
+                    <div class="stat">❤️ 2.5k</div>
+                    <div class="stat coins">🪙 450</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="load-more">
+        加载更多 ↓
+    </div>
+
+
+    <div class="bottom-nav">
+        <div class="nav-item">🏠<br>首页</div>
+        <div class="nav-item active">❤️<br>收藏</div>
+        <div class="nav-item">📜<br>历史</div>
+        <div class="nav-item">👤<br>我的</div>
+    </div>
+</body>
+</html>

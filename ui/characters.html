@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择角色</title>
+    <style>
+        :root {
+            --primary-color: #FFE162;
+            --secondary-color: #90E0EF;
+            --dark-bg: #1A1A1A;
+            --card-radius: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(26,26,26,0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            margin: 20px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: var(--card-radius);
+            padding: 15px 45px;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            opacity: 0.6;
+        }
+
+        .categories {
+            padding: 0 20px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .category {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .category.active {
+            background: var(--primary-color);
+            color: black;
+        }
+
+        .characters-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .character-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .character-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .character-info {
+            padding: 15px;
+        }
+
+        .character-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .character-desc {
+            font-size: 12px;
+            opacity: 0.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .character-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 12px;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">←</div>
+        <div class="title">选择角色</div>
+    </div>
+
+    <div class="search-bar">
+        <div class="search-icon">🔍</div>
+        <input type="text" class="search-input" placeholder="搜索角色...">
+    </div>
+
+    <div class="categories">
+        <div class="category active">全部</div>
+        <div class="category">科技</div>
+        <div class="category">艺术</div>
+        <div class="category">文学</div>
+        <div class="category">游戏</div>
+        <div class="category">音乐</div>
+        <div class="category">电影</div>
+    </div>
+
+    <div class="characters-grid">
+        <div class="character-card">
+            <img src="./static/images/nv1.png" class="character-image" alt="赛博朋克女孩">
+            <div class="character-info">
+                <div class="character-name">赛博朋克女孩</div>
+                <div class="character-desc">来自2077年的AI助手，精通未来科技与赛博文化。</div>
+                <div class="character-stats">
+                    <div class="stat">👥 2.3k</div>
+                    <div class="stat">⭐ 4.9</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <img src="./static/images/nv2.png" class="character-image" alt="艺术家">
+            <div class="character-info">
+                <div class="character-name">数字艺术家</div>
+                <div class="character-desc">专注于数字艺术创作，擅长AI艺术与创意设计。</div>
+                <div class="character-stats">
+                    <div class="stat">👥 1.8k</div>
+                    <div class="stat">⭐ 4.7</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <img src="./static/images/nv3.png" class="character-image" alt="科学家">
+            <div class="character-info">
+                <div class="character-name">量子科学家</div>
+                <div class="character-desc">研究量子计算和人工智能的未来科学家。</div>
+                <div class="character-stats">
+                    <div class="stat">👥 1.5k</div>
+                    <div class="stat">⭐ 4.8</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="character-card">
+            <img src="./static/images/nv4.png" class="character-image" alt="音乐家">
+            <div class="character-info">
+                <div class="character-name">电子音乐家</div>
+                <div class="character-desc">创作未来电子音乐的AI音乐制作人。</div>
+                <div class="character-stats">
+                    <div class="stat">👥 2.0k</div>
+                    <div class="stat">⭐ 4.6</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

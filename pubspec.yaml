@@ -1,0 +1,32 @@
+name: sky
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.3.0 # 根据最新版本调整
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/nv1.png
+    - assets/images/nv1-banner.png
+    - assets/images/nv2.png
+    - assets/images/nv3.png
+    - assets/images/nv4.png
+    - assets/images/avtor1.png
+    - assets/images/avtor2.png
+    - assets/images/logo.png
+    - assets/images/avator.png

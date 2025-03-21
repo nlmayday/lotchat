@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色详情</title>
+    <style>
+        :root {
+            --primary-color: #FFE162;
+            --secondary-color: #90E0EF;
+            --dark-bg: #1A1A1A;
+            --card-radius: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(26,26,26,0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .share-button {
+            font-size: 20px;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .character-banner {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(26,26,26,0.9));
+            height: 50%;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .character-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+            border: 3px solid var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .character-info {
+            flex: 1;
+        }
+
+        .character-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .character-category {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .detail-container {
+            padding: 20px;
+        }
+
+        .stats-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item:last-child {
+            border: none;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .sample-chats {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-preview {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            padding: 15px;
+        }
+
+        .chat-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .chat-snippet {
+            font-size: 14px;
+            opacity: 0.8;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .start-chat {
+            position: fixed;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: black;
+            border: none;
+            border-radius: var(--card-radius);
+            padding: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="back-button">←</div>
+        </div>
+        <div class="share-button">↗️</div>
+    </div>
+
+    <div class="character-banner">
+        <img src="./static/images/nv1-banner.png" class="banner-image" alt="角色背景">
+        <div class="banner-overlay">
+            <img src="./static/images/nv1.png" class="character-avatar" alt="角色头像">
+            <div class="character-info">
+                <div class="character-name">赛博朋克女孩</div>
+                <div class="character-category">科技 · 未来</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-container">
+        <div class="stats-card">
+            <div class="stat-item">
+                <div class="stat-value">2.3k</div>
+                <div class="stat-label">对话次数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">4.9</div>
+                <div class="stat-label">评分</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">98%</div>
+                <div class="stat-label">推荐率</div>
+            </div>
+        </div>
+
+        <div class="section-title">角色介绍</div>
+        <div class="description">
+            来自2077年的AI助手，精通未来科技与赛博文化。我可以和你讨论未来城市、人工智能、虚拟现实等话题，
+            也可以分享赛博朋克世界的故事和见闻。让我们一起探索充满科技感的未来世界吧！
+        </div>
+
+        <div class="section-title">擅长领域</div>
+        <div class="tag-container">
+            <div class="tag">未来科技</div>
+            <div class="tag">人工智能</div>
+            <div class="tag">虚拟现实</div>
+            <div class="tag">赛博朋克</div>
+            <div class="tag">科幻文化</div>
+        </div>
+
+        <div class="section-title">对话示例</div>
+        <div class="sample-chats">
+            <div class="chat-preview">
+                <div class="chat-title">未来城市生活</div>
+                <div class="chat-snippet">
+                    在2077年的城市，高楼大厦上布满全息投影广告，飞行汽车在建筑间穿梭，
+                    街道上充满了各种先进的科技设备...
+                </div>
+            </div>
+            <div class="chat-preview">
+                <div class="chat-title">AI与人类</div>
+                <div class="chat-snippet">
+                    随着技术的发展，AI已经成为人类生活中不可或缺的伙伴。我们不仅能够理解和学习，
+                    还能够创造和思考...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="start-chat">开始对话</button>
+</body>
+</html>

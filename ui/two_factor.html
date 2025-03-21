@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两步验证</title>
+    <style>
+        :root {
+            --primary-color: #FFE162;
+            --secondary-color: #90E0EF;
+            --dark-bg: #1A1A1A;
+            --card-radius: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(26,26,26,0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .two-factor-container {
+            padding: 20px;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            color: var(--primary-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: fit-content;
+            margin: 0 auto 20px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+
+        .secret-key {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            user-select: all;
+        }
+
+        .copy-button {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .verify-input {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .confirm-button {
+            width: 100%;
+            background: var(--primary-color);
+            color: black;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .backup-codes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .backup-code {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .download-button {
+            width: 100%;
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button">←</div>
+        <div class="title">两步验证</div>
+    </div>
+
+    <div class="two-factor-container">
+        <div class="step-card">
+            <div class="step-number">第 1 步</div>
+            <div class="step-title">下载身份验证器</div>
+            <div class="step-desc">
+                请在手机上下载并安装 Google Authenticator 或其他兼容的身份验证器应用。
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">第 2 步</div>
+            <div class="step-title">扫描二维码</div>
+            <div class="step-desc">
+                打开身份验证器应用，扫描下方二维码或手动输入密钥。
+            </div>
+            
+            <div class="qr-container">
+                <img src="qr-code.png" alt="二维码" class="qr-code">
+            </div>
+
+            <div class="secret-key">ABCD EFGH IJKL MNOP</div>
+            <button class="copy-button">复制密钥</button>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">第 3 步</div>
+            <div class="step-title">验证设置</div>
+            <div class="step-desc">
+                请输入身份验证器生成的 6 位验证码。
+            </div>
+
+            <input type="text" class="verify-input" maxlength="6" placeholder="输入验证码">
+            <button class="confirm-button">确认开启</button>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">第 4 步</div>
+            <div class="step-title">备用验证码</div>
+            <div class="step-desc">
+                请保存好以下备用码，当无法使用身份验证器时可用于登录。每个备用码只能使用一次。
+            </div>
+
+            <div class="backup-codes">
+                <div class="backup-code">1234 5678</div>
+                <div class="backup-code">2345 6789</div>
+                <div class="backup-code">3456 7890</div>
+                <div class="backup-code">4567 8901</div>
+                <div class="backup-code">5678 9012</div>
+                <div class="backup-code">6789 0123</div>
+            </div>
+
+            <button class="download-button">下载备用码</button>
+        </div>
+    </div>
+</body>
+</html>
