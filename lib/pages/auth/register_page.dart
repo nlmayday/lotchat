@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sky/api/api_client.dart';
 import 'package:sky/providers/user_provider.dart';
 import 'package:sky/api/api_client.dart';
 
@@ -33,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() => _isLoading = true);
 
     try {
-      final user = await ApiClient.register(
+      final user = await AuthService.register(
         _usernameController.text,
         _emailController.text,
         _passwordController.text,

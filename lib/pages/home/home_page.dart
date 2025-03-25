@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sky/api/services/character_service.dart';
 import 'package:sky/models/character.dart';
 import 'package:sky/pages/home/widgets/character_grid.dart';
 import 'package:sky/pages/home/widgets/category_tabs.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // 初始化角色列表数据
-    _characterListFuture = ApiClient.getCharacterList();
+    _characterListFuture = CharacterService.getCharacterList();
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sky/api/services/character_service.dart';
 import 'package:sky/models/character.dart';
 import 'package:sky/models/chat.dart';
 import 'package:sky/pages/chat/widgets/chat_app_bar.dart';
@@ -25,7 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     // 异步加载角色数据，并确保非空
-    _characterFuture = ApiClient.getCharacterById(widget.characterId).then((
+    _characterFuture = CharacterService.getCharacterById(widget.characterId).then((
       character,
     ) {
       if (character == null) {

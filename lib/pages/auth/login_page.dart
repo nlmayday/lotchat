@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sky/api/api_client.dart';
 import 'package:sky/providers/user_provider.dart';
 import 'package:sky/api/api_client.dart';
 
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _isLoading = true);
 
     try {
-      final user = await ApiClient.login(
+      final user = await AuthService.login(
         _emailController.text,
         _passwordController.text,
       );
