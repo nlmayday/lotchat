@@ -1,35 +1,22 @@
 import 'package:flutter/material.dart';
 
 class ProfileMenu extends StatelessWidget {
-  const ProfileMenu({super.key});
+  final VoidCallback onLogout;
+
+  const ProfileMenu({
+    super.key,
+    required this.onLogout,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _buildMenuSection('账户管理', [
-          MenuItem(
-            icon: Icons.account_circle_outlined,
-            title: '个人信息',
-            onTap: () {
-              // TODO: 导航到个人信息编辑页面
-            },
-          ),
-          MenuItem(
-            icon: Icons.lock_outline,
-            title: '修改密码',
-            onTap: () {
-              // TODO: 导航到密码修改页面
-            },
-          ),
-        ]),
         _buildMenuSection('钱包', [
           MenuItem(
             icon: Icons.account_balance_wallet_outlined,
             title: '充值',
-            onTap: () {
-              // TODO: 导航到充值页面
-            },
+            onTap: () => Navigator.pushNamed(context, '/wallet/recharge'),
           ),
           MenuItem(
             icon: Icons.receipt_long_outlined,
@@ -51,25 +38,33 @@ class ProfileMenu extends StatelessWidget {
           MenuItem(
             icon: Icons.settings_outlined,
             title: '设置',
-            onTap: () {
-              // TODO: 导航到设置页面
-            },
+            onTap: () => Navigator.pushNamed(context, '/settings'),
           ),
           MenuItem(
             icon: Icons.help_outline,
             title: '帮助与反馈',
-            onTap: () {
-              // TODO: 导航到帮助页面
-            },
+            onTap: () => Navigator.pushNamed(context, '/help'),
           ),
           MenuItem(
             icon: Icons.info_outline,
             title: '关于',
-            onTap: () {
-              // TODO: 导航到关于页面
-            },
+            onTap: () => Navigator.pushNamed(context, '/about'),
           ),
         ]),
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: ElevatedButton(
+            onPressed: onLogout,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.withOpacity(0.8),
+              minimumSize: const Size.fromHeight(50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            child: const Text('退出登录'),
+          ),
+        ),
       ],
     );
   }

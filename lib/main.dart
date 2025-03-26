@@ -11,16 +11,27 @@ import 'package:sky/pages/chat/chat_page.dart'; // 假设聊天页面路径为 c
 import 'package:sky/widgets/auth_guard.dart';
 import 'package:sky/pages/auth/login_page.dart';
 import 'package:sky/pages/auth/register_page.dart';
+import 'package:sky/pages/profile/profile_edit_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  final userProvider = UserProvider();
+await userProvider.loadUser();
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(const MyApp());
+
+  runApp(
+    ChangeNotifierProvider.value(
+      value: userProvider,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -40,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/favorites': (context) => AuthGuard(child: const FavoritesPage()),
           '/history': (context) => AuthGuard(child: const HistoryPage()),
           '/profile': (context) => AuthGuard(child: const ProfilePage()),
+          // '/profile/edit': (context) => const ProfileEditPage(),
           '/chat': (context) {
             final args =
                 ModalRoute.of(context)!.settings.arguments
@@ -52,6 +64,7 @@ class MyApp extends StatelessWidget {
             );
           },
           '/login': (context) => const LoginPage(),
+          '/profile/edit': (context) => const ProfileEditPage(), // Add this line
           '/register': (context) => const RegisterPage(),
         },
       ),

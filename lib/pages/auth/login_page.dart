@@ -35,15 +35,16 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text,
       );
 
-      if (mounted) {
-        await context.read<UserProvider>().saveUser(user);
-      }
+      if (!mounted) return;
+      await context.read<UserProvider>().saveUser(user);
+      
+      // 使用 pushReplacementNamed 替代普通的导航
+      Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('登录失败: $e')));
-      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('登录失败: $e')),
+      );
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);

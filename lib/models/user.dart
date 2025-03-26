@@ -15,17 +15,6 @@ class User {
     this.coins = 0,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      username: json['username'],
-      email: json['email'],
-      avatar: json['avatar'],
-      token: json['token'],
-      coins: json['coins'] ?? 0,
-    );
-  }
-
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -35,5 +24,16 @@ class User {
       'token': token,
       'coins': coins,
     };
+  }
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      username: json['username'],
+      email: json['email'],
+      avatar: json['avatar'],
+      token: json['token'],
+      coins: json['coins'] ?? 0,
+    );
   }
 }

@@ -1,57 +1,67 @@
 import 'package:flutter/foundation.dart';
+// 需要先运行 flutter pub add shared_preferences 添加依赖
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sky/models/user.dart';
+import 'dart:convert';
 
-class UserProvider with ChangeNotifier {
+class UserProvider extends ChangeNotifier {
   User? _user;
-  bool _isLoading = false;
+  bool _isLoading = true;
+  static final UserProvider _instance = UserProvider._internal();
+  static SharedPreferences? _prefs;
 
-  User? get user => _user;
+  factory UserProvider() {
+    return _instance;
+  }
+
+  UserProvider._internal();
+
+  static Future<void> initialize() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
   bool get isLoading => _isLoading;
   bool get isLoggedIn => _user != null;
+  User? get user => _user;
 
-  // 从本地存储加载用户信息
   Future<void> loadUser() async {
+    if (_prefs == null) {
+      await initialize();
+    }
+
     _isLoading = true;
     notifyListeners();
 
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final userJson = prefs.getString('user');
+      final userJson = _prefs?.getString('user_data');
       if (userJson != null) {
-        _user = User.fromJson(
-          Map<String, dynamic>.from(Map<String, dynamic>.from(userJson as Map)),
-        );
+        _user = User.fromJson(json.decode(userJson));
       }
     } catch (e) {
-      debugPrint('Error loading user: $e');
+      await _prefs?.remove('user_data');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
+  }
 
-    _isLoading = false;
+  Future<void> saveUser(User user) async {
+    if (_prefs == null) {
+      await initialize();
+    }
+    
+    _user = user;
+    await _prefs?.setString('user_data', json.encode(user.toJson()));
     notifyListeners();
   }
 
-  // 保存用户信息到本地存储
-  Future<void> saveUser(User user) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user', user.toJson().toString());
-      _user = user;
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Error saving user: $e');
-    }
-  }
-
-  // 清除用户信息（登出）
   Future<void> clearUser() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('user');
-      _user = null;
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Error clearing user: $e');
+    if (_prefs == null) {
+      await initialize();
     }
+    
+    _user = null;
+    await _prefs?.remove('user_data');
+    notifyListeners();
   }
 }

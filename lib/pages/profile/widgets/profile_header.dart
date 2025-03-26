@@ -3,8 +3,13 @@ import 'package:sky/models/user.dart';
 
 class ProfileHeader extends StatelessWidget {
   final User user;
+  final VoidCallback onEditAvatar;
 
-  const ProfileHeader({super.key, required this.user});
+  const ProfileHeader({
+    super.key,
+    required this.user,
+    required this.onEditAvatar,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +22,26 @@ class ProfileHeader extends StatelessWidget {
               CircleAvatar(
                 radius: 50,
                 backgroundImage: AssetImage(
-                  user.avatar ?? 'assets/images/default_avator.png',
+                  user.avatar ?? 'assets/images/default_avatar.png',
                 ),
               ),
               Positioned(
                 right: 0,
                 bottom: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    shape: BoxShape.circle,
+                child: GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, '/profile/edit'),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.edit,
+                      size: 20,
+                      color: Colors.black,
+                    ),
                   ),
-                  child: const Icon(Icons.edit, size: 16, color: Colors.black),
                 ),
               ),
             ],
