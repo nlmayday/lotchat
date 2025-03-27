@@ -11,6 +11,7 @@ import 'package:sky/pages/chat/chat_page.dart'; // 假设聊天页面路径为 c
 import 'package:sky/widgets/auth_guard.dart';
 import 'package:sky/pages/auth/login_page.dart';
 import 'package:sky/pages/auth/register_page.dart';
+import 'package:sky/pages/auth/forgot_password_page.dart';
 import 'package:sky/pages/profile/profile_edit_page.dart';
 
 void main() async {
@@ -64,8 +65,8 @@ class MyApp extends StatelessWidget {
             );
           },
           '/login': (context) => const LoginPage(),
-          '/profile/edit': (context) => const ProfileEditPage(), // Add this line
           '/register': (context) => const RegisterPage(),
+          '/forgot-password': (context) => const ForgotPasswordPage(),
         },
       ),
     );

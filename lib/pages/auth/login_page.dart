@@ -114,11 +114,19 @@ class _LoginPageState extends State<LoginPage> {
                           : const Text('登录'),
                 ),
                 const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                  },
-                  child: const Text('还没有账号？立即注册'),
+                // 添加忘记密码和注册的链接
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/forgot-password'),
+                      child: const Text('忘记密码？'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/register'),
+                      child: const Text('注册账号'),
+                    ),
+                  ],
                 ),
               ],
             ),

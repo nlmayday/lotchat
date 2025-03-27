@@ -92,4 +92,15 @@ class AuthService {
       coins: 10000,
     );
   }
+
+  static Future<void> forgotPassword(String email) async {
+      // TODO: 实现真实的API调用
+      // await HttpClient.post('/auth/forgot-password', body: {
+      //   'email': email,
+      // });
+      
+      // 模拟网络请求延迟
+      await Future.delayed(const Duration(seconds: 2));
+      return;
+    }
 }
