@@ -12,7 +12,8 @@ import 'package:sky/widgets/auth_guard.dart';
 import 'package:sky/pages/auth/login_page.dart';
 import 'package:sky/pages/auth/register_page.dart';
 import 'package:sky/pages/auth/forgot_password_page.dart';
-import 'package:sky/pages/profile/profile_edit_page.dart';
+import 'package:sky/pages/wallet/recharge_page.dart';
+import 'package:sky/pages/wallet/recharge_history_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const LoginPage(),
           '/register': (context) => const RegisterPage(),
           '/forgot-password': (context) => const ForgotPasswordPage(),
+          // 暂时注释掉充值页面路由，等待 RechargePage 类的实现
+          '/wallet/recharge': (context) => const RechargePage(),
+          '/wallet/history': (context) => const RechargeHistoryPage(),
         },
       ),
     );

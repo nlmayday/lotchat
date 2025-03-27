@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sky/pages/wallet/recharge_page.dart';
+
+class RechargeOption {
+  final double amount;
+  final int coins;
+  final int? bonus;
+
+  const RechargeOption({
+    required this.amount,
+    required this.coins,
+    this.bonus,
+  });
+}
 
 class RechargeCard extends StatelessWidget {
   final RechargeOption option;
@@ -19,16 +30,14 @@ class RechargeCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Colors.white.withOpacity(0.1),
+          color: isSelected
+              ? Theme.of(context).primaryColor.withOpacity(0.1)
+              : Colors.white.withOpacity(0.1),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color:
-                isSelected
-                    ? Theme.of(context).primaryColor
-                    : Colors.transparent,
+            color: isSelected
+                ? Theme.of(context).primaryColor
+                : Colors.transparent,
             width: 2,
           ),
         ),
@@ -42,18 +51,20 @@ class RechargeCard extends StatelessWidget {
             ),
             const Spacer(),
             Text('${option.coins}金币', style: const TextStyle(fontSize: 16)),
-            const SizedBox(height: 4),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(10),
+            if (option.bonus != null) ...[
+              const SizedBox(height: 4),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  '+${option.bonus}赠送',
+                  style: const TextStyle(fontSize: 12, color: Colors.black),
+                ),
               ),
-              child: Text(
-                '+${option.bonus}赠送',
-                style: const TextStyle(fontSize: 12, color: Colors.black),
-              ),
-            ),
+            ],
           ],
         ),
       ),

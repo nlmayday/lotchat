@@ -21,9 +21,7 @@ class ProfileMenu extends StatelessWidget {
           MenuItem(
             icon: Icons.receipt_long_outlined,
             title: '充值记录',
-            onTap: () {
-              // TODO: 导航到充值记录页面
-            },
+            onTap: () => Navigator.pushNamed(context, '/wallet/history'),
           ),
           MenuItem(
             icon: Icons.local_offer_outlined,
