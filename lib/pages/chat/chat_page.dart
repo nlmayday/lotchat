@@ -26,9 +26,9 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     // 异步加载角色数据，并确保非空
-    _characterFuture = CharacterService.getCharacterById(widget.characterId).then((
-      character,
-    ) {
+    _characterFuture = CharacterService.getCharacterById(
+      widget.characterId,
+    ).then((character) {
       if (character == null) {
         // 使用 dart:developer 的 log 函数记录日志
         developer.log('Character not found for ID: ${widget.characterId}');

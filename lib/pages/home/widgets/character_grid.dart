@@ -5,17 +5,19 @@ import 'package:sky/models/character.dart';
 
 class CharacterGrid extends StatelessWidget {
   final List<Character> characters;
-  final Function(String) onCharacterTap; // 添加回调参数
+  final Function(String) onCharacterTap;
 
   const CharacterGrid({
     super.key,
     required this.characters,
-    required this.onCharacterTap, // 设置为必填
+    required this.onCharacterTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.all(16),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -28,7 +30,7 @@ class CharacterGrid extends StatelessWidget {
         final character = characters[index];
         return CharacterCard(
           character: character,
-          onTap: () => onCharacterTap(character.id), // 传递回调
+          onTap: () => onCharacterTap(character.id),
         );
       },
     );

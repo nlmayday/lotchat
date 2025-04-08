@@ -3,89 +3,151 @@ import '../client/http_client.dart';
 
 class CharacterService {
   // 模拟数据
-  static final List<Character> _mockCharacters = [
-    Character(
-      id: '1',
-      name: '角色1',
-      description: '这是一个示例角色1。',
-      avatar: 'assets/images/nv1.png',
-      backgroundImage: 'assets/images/nv1-banner.png',
-      tags: ['示例', '角色1'],
-      price: 5,
-      category: '示例',
-    ),
-    Character(
-      id: '2',
-      name: '角色2',
-      description: '这是一个示例角色2。',
-      avatar: 'assets/images/nv2.png',
-      backgroundImage: 'assets/images/nv1-banner.png',
-      tags: ['示例', '角色2'],
-      price: 10,
-      category: '示例',
-    ),
-    Character(
-      id: '3',
-      name: '另一个他',
-      description: '来自2077年的AI助手，精通未来科技与赛博文化。',
-      avatar: 'assets/images/nv3.png',
-      backgroundImage: 'assets/images/nv1-banner.png',
-      tags: ['未来科技', '赛博朋克'],
-      price: 10,
-      category: '科技',
-    ),
-  ];
+  static List<Character> _generateMockCharacters() {
+    final categories = ['治愈', '知识', '热门', '闲聊'];
+    final List<Character> characters = [];
 
-  static Future<List<Character>> getCharacterList({
-    int offset = 0,
+    for (int i = 1; i <= 100; i++) {
+      final category = categories[i % categories.length];
+      characters.add(
+        Character(
+          id: i.toString(),
+          name: '角色$i',
+          description: '这是第$i个AI助手，属于$category分类。',
+          avatar: 'assets/images/nv${(i % 4) + 1}.png',
+          backgroundImage: 'assets/images/nv1-banner.png',
+          tags: [category, '标签$i'],
+          price: (i % 20) * 5,
+          category: category,
+        ),
+      );
+    }
+    return characters;
+  }
+
+  static final List<Character> _mockCharacters = _generateMockCharacters();
+
+  // 按分类获取角色列表
+  static Future<List<Character>> getCharacterListByCategory({
+    String category = '推荐',
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    if (category == '推荐') {
+      return _mockCharacters;
+    }
+
+    return _mockCharacters.where((char) => char.category == category).toList();
+  }
+
+  // 根据ID获取角色详情
+  static Future<Character?> getCharacterById(String id) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    try {
+      return _mockCharacters.firstWhere((char) => char.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // 获取热门角色
+  static Future<List<Character>> getHotCharacters() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return _mockCharacters.where((char) => char.category == '热门').toList();
+  }
+
+  // 获取推荐角色
+  static Future<List<Character>> getRecommendedCharacters() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return _mockCharacters.take(2).toList();
+  }
+
+  // 搜索角色
+  static Future<List<Character>> searchCharacters(String keyword) async {
+    await Future.delayed(const Duration(milliseconds: 800));
+    return _mockCharacters
+        .where(
+          (char) =>
+              char.name.contains(keyword) ||
+              char.description.contains(keyword) ||
+              char.tags.any((tag) => tag.contains(keyword)),
+        )
+        .toList();
+  }
+
+  // 获取角色列表（带分页和搜索参数）
+  static Future<Map<String, dynamic>> getCharacterList({
+    int page = 1,
     int pageSize = 10,
     Map<String, dynamic>? searchParams,
+    String sortField = 'id',
+    bool ascending = true,
   }) async {
-    // final response = await HttpClient.get(
-    //   '/characters?offset=$offset&pageSize=$pageSize&search=${searchParams?['searchTerm'] ?? ''}',
-    // );
-    // return (response as List).map((json) => Character.fromJson(json)).toList();
+    await Future.delayed(const Duration(milliseconds: 800));
 
-    // 模拟搜索参数
-    // 模拟搜索参数
-    List<Character> filteredCharacters = _mockCharacters;
+    var filteredList = List<Character>.from(_mockCharacters);
+
+    // 应用搜索条件
     if (searchParams != null) {
-      final searchTerm = searchParams['searchTerm'] as String?;
-      if (searchTerm != null && searchTerm.isNotEmpty) {
-        filteredCharacters =
-            filteredCharacters
+      if (searchParams['category'] != null) {
+        filteredList =
+            filteredList
+                .where((char) => char.category == searchParams['category'])
+                .toList();
+      }
+      if (searchParams['keyword'] != null) {
+        final keyword = searchParams['keyword'].toString().toLowerCase();
+        filteredList =
+            filteredList
                 .where(
-                  (character) =>
-                      character.name.toLowerCase().contains(
-                        searchTerm.toLowerCase(),
-                      ) ||
-                      character.description.toLowerCase().contains(
-                        searchTerm.toLowerCase(),
+                  (char) =>
+                      char.name.toLowerCase().contains(keyword) ||
+                      char.description.toLowerCase().contains(keyword) ||
+                      char.tags.any(
+                        (tag) => tag.toLowerCase().contains(keyword),
                       ),
                 )
                 .toList();
       }
+      if (searchParams['priceRange'] != null) {
+        final maxPrice = searchParams['priceRange']['max'];
+        final minPrice = searchParams['priceRange']['min'];
+        if (maxPrice != null) {
+          filteredList =
+              filteredList.where((char) => char.price <= maxPrice).toList();
+        }
+        if (minPrice != null) {
+          filteredList =
+              filteredList.where((char) => char.price >= minPrice).toList();
+        }
+      }
     }
 
-    // 分页
-    final List<Character> paginatedCharacters =
-        filteredCharacters.skip(offset).take(pageSize).toList();
+    // 排序
+    filteredList.sort((a, b) {
+      dynamic valueA = a.toJson()[sortField];
+      dynamic valueB = b.toJson()[sortField];
+      return ascending
+          ? Comparable.compare(valueA, valueB)
+          : Comparable.compare(valueB, valueA);
+    });
 
-    return paginatedCharacters;
-  }
+    // 计算分页
+    final total = filteredList.length;
+    final start = (page - 1) * pageSize;
+    final end = start + pageSize;
 
-  static Future<Character> getCharacterById(String id) async {
-    // final response = await HttpClient.get('/characters/$id');
-    // return Character.fromJson(response);
-
-     final character = _mockCharacters.firstWhere(
-      (character) => character.id == id,
+    // 获取当前页数据
+    final currentPageData = filteredList.sublist(
+      start.clamp(0, total),
+      end.clamp(0, total),
     );
 
-    if (character != null) {
-      return character;
-    } else {
-      throw Exception('Failed to load character with id $id: 404');
-    }
+    return {
+      'total': total,
+      'currentPage': page,
+      'pageSize': pageSize,
+      'data': currentPageData,
+    };
   }
 }

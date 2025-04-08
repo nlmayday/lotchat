@@ -1,52 +1,51 @@
 import 'package:flutter/material.dart';
 
-class CategoryTabs extends StatefulWidget {
-  const CategoryTabs({super.key});
+class CategoryTabs extends StatelessWidget {
+  final String currentCategory;
+  final Function(String) onCategoryChanged;
 
-  @override
-  State<CategoryTabs> createState() => _CategoryTabsState();
-}
-
-class _CategoryTabsState extends State<CategoryTabs> {
-  int _selectedIndex = 0;
-  final List<String> _categories = ['最新', '热门', '科技', '艺术', '文学', '游戏', '音乐'];
+  const CategoryTabs({
+    super.key,
+    required this.currentCategory,
+    required this.onCategoryChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: _categories.length,
-        itemBuilder: (context, index) {
-          final isSelected = _selectedIndex == index;
+    final categories = ['推荐', '热门', '新人', '治愈', '知识', '闲聊'];
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: categories.map((category) {
+          final isSelected = category == currentCategory;
           return Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.only(right: 12),
             child: GestureDetector(
-              onTap: () => setState(() => _selectedIndex = index),
+              onTap: () => onCategoryChanged(category),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
-                  color:
-                      isSelected
-                          ? Theme.of(context).primaryColor
-                          : Colors.white.withOpacity(0.1),
+                  color: isSelected
+                      ? Theme.of(context).primaryColor
+                      : Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                alignment: Alignment.center,
                 child: Text(
-                  _categories[index],
+                  category,
                   style: TextStyle(
                     color: isSelected ? Colors.black : Colors.white,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
               ),
             ),
           );
-        },
+        }).toList(),
       ),
     );
   }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sky/api/services/character_service.dart';
+import 'package:sky/models/banner.dart';
 import 'package:sky/models/character.dart';
 import 'package:sky/pages/home/widgets/character_grid.dart';
 import 'package:sky/pages/home/widgets/category_tabs.dart';
 import 'package:sky/pages/home/widgets/search_bar.dart';
 import 'package:sky/widgets/common_bottom_nav.dart';
 import 'package:sky/api/api_client.dart'; // 导入 ApiClient
+import 'package:sky/api/services/banner_service.dart';
+import 'package:sky/pages/home/widgets/banner_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,14 +18,73 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0; // 首页索引为 0
-  late Future<List<Character>> _characterListFuture;
+  int _currentIndex = 0;
+  String _currentCategory = '推荐';
+  int _currentPage = 1;
+  final int _pageSize = 8;
+  bool _hasMore = true;
+  List<Character> _characters = [];
+  bool _isLoading = false;
+  late Future<List<BannerItem>> _bannerListFuture;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    // 初始化角色列表数据
-    _characterListFuture = CharacterService.getCharacterList();
+    _loadCharacters(_currentCategory);
+    _bannerListFuture = BannerService.getBannerList();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      if (!_isLoading && _hasMore) {
+        _loadMoreCharacters();
+      }
+    }
+  }
+
+  Future<void> _loadMoreCharacters() async {
+    if (_isLoading) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final result = await CharacterService.getCharacterList(
+      page: _currentPage + 1,
+      pageSize: _pageSize,
+      searchParams:
+          _currentCategory != '推荐' ? {'category': _currentCategory} : null,
+    );
+
+    setState(() {
+      _currentPage++;
+      _characters.addAll(result['data'] as List<Character>);
+      _hasMore = _characters.length < (result['total'] as int);
+      _isLoading = false;
+    });
+  }
+
+  void _loadCharacters(String category) {
+    setState(() {
+      _currentPage = 1;
+      _characters = [];
+      _hasMore = true;
+      _isLoading = false;
+    });
+
+    CharacterService.getCharacterList(
+      page: _currentPage,
+      pageSize: _pageSize,
+      searchParams: category != '推荐' ? {'category': category} : null,
+    ).then((result) {
+      setState(() {
+        _characters = result['data'] as List<Character>;
+        _hasMore = _characters.length < (result['total'] as int);
+      });
+    });
   }
 
   @override
@@ -35,30 +97,48 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(16.0),
               child: HomeSearchBar(),
             ),
-            const CategoryTabs(),
+            FutureBuilder<List<BannerItem>>(
+              future: _bannerListFuture,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return BannerSlider(banners: snapshot.data!);
+                }
+                return const SizedBox(height: 200);
+              },
+            ),
+            const SizedBox(height: 24),
+            CategoryTabs(
+              currentCategory: _currentCategory,
+              onCategoryChanged: (category) {
+                setState(() {
+                  _currentCategory = category;
+                  _loadCharacters(category);
+                });
+              },
+            ),
             Expanded(
-              child: FutureBuilder<List<Character>>(
-                future: _characterListFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    // 加载中...
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    // 错误处理
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    // 没有数据
-                    return const Center(
-                      child: Text('No characters available.'),
-                    );
-                  }
-                  // 展示角色网格
-                  return CharacterGrid(
-                    characters: snapshot.data!,
-                    onCharacterTap: _onCharacterTap,
-                  );
-                },
-              ),
+              child:
+                  _characters.isEmpty && _isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : ListView(
+                        controller: _scrollController,
+                        children: [
+                          CharacterGrid(
+                            characters: _characters,
+                            onCharacterTap: _onCharacterTap,
+                          ),
+                          if (_isLoading)
+                            const Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Center(child: CircularProgressIndicator()),
+                            ),
+                          if (!_hasMore && _characters.isNotEmpty)
+                            const Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Center(child: Text('没有更多数据了')),
+                            ),
+                        ],
+                      ),
             ),
           ],
         ),
@@ -88,5 +168,11 @@ class _HomePageState extends State<HomePage> {
 
   void _onCharacterTap(String characterId) {
     Navigator.pushNamed(context, '/chat', arguments: {'characterId': '3'});
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
