@@ -45,29 +45,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<void> _loadMoreCharacters() async {
-    if (_isLoading) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    final result = await CharacterService.getCharacterList(
-      page: _currentPage + 1,
-      pageSize: _pageSize,
-      searchParams:
-          _currentCategory != '推荐' ? {'category': _currentCategory} : null,
-    );
-
-    setState(() {
-      _currentPage++;
-      _characters.addAll(result['data'] as List<Character>);
-      _hasMore = _characters.length < (result['total'] as int);
-      _isLoading = false;
-    });
-  }
-
-  void _loadCharacters(String category) {
+  void _loadCharacters(String category, {String? keyword}) {
     setState(() {
       _currentPage = 1;
       _characters = [];
@@ -78,12 +56,38 @@ class _HomePageState extends State<HomePage> {
     CharacterService.getCharacterList(
       page: _currentPage,
       pageSize: _pageSize,
-      searchParams: category != '推荐' ? {'category': category} : null,
+      searchParams: {
+        if (category != '推荐') 'category': category,
+        if (keyword != null && keyword.isNotEmpty) 'keyword': keyword,
+      },
     ).then((result) {
       setState(() {
         _characters = result['data'] as List<Character>;
         _hasMore = _characters.length < (result['total'] as int);
       });
+    });
+  }
+
+  Future<void> _loadMoreCharacters() async {
+    if (_isLoading) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final result = await CharacterService.getCharacterList(
+      page: _currentPage + 1,
+      pageSize: _pageSize,
+      searchParams: {
+        if (_currentCategory != '推荐') 'category': _currentCategory,
+      },
+    );
+
+    setState(() {
+      _currentPage++;
+      _characters.addAll(result['data'] as List<Character>);
+      _hasMore = _characters.length < (result['total'] as int);
+      _isLoading = false;
     });
   }
 
@@ -93,9 +97,16 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: HomeSearchBar(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: HomeSearchBar(
+                onSearch: (keyword) {
+                  setState(() {
+                    _currentCategory = '推荐';
+                    _loadCharacters('推荐', keyword: keyword);
+                  });
+                },
+              ),
             ),
             FutureBuilder<List<BannerItem>>(
               future: _bannerListFuture,
