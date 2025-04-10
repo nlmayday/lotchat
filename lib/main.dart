@@ -15,6 +15,7 @@ import 'package:sky/pages/auth/forgot_password_page.dart';
 import 'package:sky/pages/wallet/recharge_page.dart';
 import 'package:sky/pages/wallet/recharge_history_page.dart';
 import 'package:sky/api/services/character_service.dart'; // 添加这行导入
+import 'package:sky/pages/wallet/coupon_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           // 暂时注释掉充值页面路由，等待 RechargePage 类的实现
           '/wallet/recharge': (context) => const RechargePage(),
           '/wallet/history': (context) => const RechargeHistoryPage(),
+          '/wallet/coupons': (context) => const CouponPage(),
         },
       ),
     );

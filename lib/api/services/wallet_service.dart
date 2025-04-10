@@ -2,16 +2,17 @@ import 'package:sky/models/recharge_record.dart';
 
 class WalletService {
   static Future<void> recharge({
-    required int amount,
+    required double amount,
     required String paymentMethod,
+    String? couponId,  // 添加优惠券ID参数
   }) async {
     // TODO: 实现真实的API调用
     // final response = await HttpClient.post('/wallet/recharge', body: {
     //   'amount': amount,
     //   'payment_method': paymentMethod,
+    //   if (couponId != null) 'coupon_id': couponId,
     // });
     
-    // 模拟网络请求延迟
     await Future.delayed(const Duration(seconds: 2));
     return;
   }

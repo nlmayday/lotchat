@@ -27,9 +27,7 @@ class ProfileMenu extends StatelessWidget {
             icon: Icons.local_offer_outlined,
             title: '优惠券',
             badge: '2',
-            onTap: () {
-              // TODO: 导航到优惠券页面
-            },
+            onTap: () => Navigator.pushNamed(context, '/wallet/coupons'),
           ),
         ]),
         _buildMenuSection('其他', [

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sky/models/coupon.dart';
 import 'package:sky/providers/user_provider.dart';
 import 'package:sky/api/services/wallet_service.dart';
-
+import 'package:sky/pages/wallet/coupon_page.dart';
 class RechargePage extends StatefulWidget {
   const RechargePage({super.key});
 
@@ -11,9 +12,10 @@ class RechargePage extends StatefulWidget {
 }
 
 class _RechargePageState extends State<RechargePage> {
-  int _selectedAmount = 30;
+  double _selectedAmount = 30;
   String _selectedPayment = 'wechat';
   bool _isLoading = false;
+  Coupon? _selectedCoupon;  // 添加选中的优惠券状态
 
   final List<Map<String, dynamic>> _amountOptions = [
     {'amount': 6, 'coins': 600, 'bonus': null},
@@ -24,6 +26,24 @@ class _RechargePageState extends State<RechargePage> {
     {'amount': 648, 'coins': 64800, 'bonus': 30},
   ];
 
+  // 添加选择优惠券的方法
+  Future<void> _selectCoupon() async {
+    final coupon = await Navigator.push<Coupon>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CouponPage(
+          isSelecting: true,
+          currentAmount: _selectedAmount,
+        ),
+      ),
+    );
+
+    if (coupon != null && mounted) {
+      setState(() => _selectedCoupon = coupon);
+    }
+  }
+
+  // 修改支付处理方法，添加优惠券
   Future<void> _handlePay() async {
     setState(() => _isLoading = true);
 
@@ -31,6 +51,7 @@ class _RechargePageState extends State<RechargePage> {
       await WalletService.recharge(
         amount: _selectedAmount,
         paymentMethod: _selectedPayment,
+        couponId: _selectedCoupon?.id,  // 添加优惠券ID
       );
 
       if (!mounted) return;
@@ -197,18 +218,35 @@ class _RechargePageState extends State<RechargePage> {
                     color: Colors.white.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Row(
-                    children: [
-                      const Text('🎟️', style: TextStyle(fontSize: 24)),
-                      const SizedBox(width: 10),
-                      const Text('优惠券'),
-                      const Text(
-                        ' 3张可用',
-                        style: TextStyle(color: Color(0xFFFFE162)),
-                      ),
-                      const Spacer(),
-                      const Icon(Icons.chevron_right),
-                    ],
+                  child: InkWell(
+                    onTap: _selectCoupon,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.local_offer_outlined),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _selectedCoupon != null 
+                                    ? '已选择：${_selectedCoupon!.name}'
+                                    : '选择优惠券',
+                              ),
+                              if (_selectedCoupon != null)
+                                Text(
+                                  '满${_selectedCoupon!.minSpend}元减${_selectedCoupon!.amount}元',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.chevron_right),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -256,39 +294,50 @@ class _RechargePageState extends State<RechargePage> {
             ),
             child: Row(
               children: [
-                const Text('总计: '),
-                Text(
-                  '¥$_selectedAmount',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: _isLoading ? null : _handlePay,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
+                const Text('总计'),
+                Row(
+                  children: [
+                    Text(
+                      '¥$_selectedAmount',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                  child: _isLoading
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : const Text('立即支付'),
+                    if (_selectedCoupon != null)
+                      Text(
+                        ' -¥${_selectedCoupon!.amount}',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                  ],
                 ),
               ],
             ),
+          ),
+          ElevatedButton(
+            onPressed: _isLoading ? null : _handlePay,
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 12,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            child: _isLoading
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  )
+                : const Text('立即支付'),
           ),
         ],
       ),
