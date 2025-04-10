@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sky/pages/wallet/recharge_page.dart';
-import 'package:sky/pages/profile/profile_page.dart';
 import 'package:sky/utils/search_history_manager.dart';
 import 'package:sky/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -16,30 +15,145 @@ class HomeSearchBar extends StatefulWidget {
 
 class _HomeSearchBarState extends State<HomeSearchBar> {
   final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
   List<String> _searchHistory = [];
-  bool _showHistory = false;
+  final LayerLink _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
 
   @override
   void initState() {
     super.initState();
     _loadSearchHistory();
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  // 移除 _isClearing 变量，改用不同的方案
+
+  void _onFocusChange() {
+    if (!_focusNode.hasFocus) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (!_focusNode.hasFocus) {
+          _hideOverlay();
+        }
+      });
+    }
   }
 
   Future<void> _loadSearchHistory() async {
     final history = await SearchHistoryManager.getSearchHistory();
+    if (!mounted) return;
     setState(() {
       _searchHistory = history;
     });
   }
 
+  void _showOverlay() {
+    final overlay = Overlay.of(context);
+    final renderBox = context.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+
+    _overlayEntry = OverlayEntry(
+      builder:
+          (context) => Stack(
+            children: [
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: _hideOverlay,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                ),
+              ),
+              Positioned(
+                width: size.width - 80,
+                child: CompositedTransformFollower(
+                  link: _layerLink,
+                  showWhenUnlinked: false,
+                  offset: const Offset(0.0, 60.0),
+                  child: Material(
+                    elevation: 8,
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      constraints: const BoxConstraints(maxHeight: 300),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('搜索历史'),
+                                TextButton(
+                                  onPressed: () async {
+                                    await SearchHistoryManager.clearSearchHistory();
+                                    if (!mounted) return;
+                                    setState(() {
+                                      _searchHistory = [];
+                                    });
+                                    _focusNode.requestFocus(); // 保持焦点
+                                  },
+                                  child: const Text('清空'),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(height: 1),
+                          if (_searchHistory.isEmpty)
+                            const Padding(
+                              padding: EdgeInsets.all(16),
+                              child: Center(child: Text('暂无搜索历史')),
+                            )
+                          else
+                            Flexible(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                padding: EdgeInsets.zero,
+                                itemCount: _searchHistory.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    dense: true,
+                                    leading: const Icon(Icons.history),
+                                    title: Text(_searchHistory[index]),
+                                    onTap: () {
+                                      _controller.text = _searchHistory[index];
+                                      _onSearch(_searchHistory[index]);
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
   void _onSearch(String keyword) async {
-    if (keyword.trim().isEmpty) return;
+    // if (keyword.trim().isEmpty) return;
+
     await SearchHistoryManager.addSearchHistory(keyword);
+    await _loadSearchHistory();
+
+    if (!mounted) return;
     widget.onSearch(keyword);
-    _controller.clear();
-    setState(() {
-      _showHistory = false;
-    });
+    _hideOverlay();
+  }
+
+  void _hideOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
   }
 
   @override
@@ -49,84 +163,31 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
     return Row(
       children: [
         Expanded(
-          child: Column(
-            children: [
-              TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  hintText: '搜索角色',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon:
-                      _controller.text.isNotEmpty
-                          ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _controller.clear();
-                              setState(() {});
-                            },
-                          )
-                          : null,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
+          child: CompositedTransformTarget(
+            link: _layerLink,
+            child: TextField(
+              controller: _controller,
+              focusNode: _focusNode,
+              decoration: InputDecoration(
+                hintText: '搜索角色',
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon:
+                    _controller.text.isNotEmpty
+                        ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            _controller.clear();
+                            setState(() {});
+                          },
+                        )
+                        : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
                 ),
-                onTap: () {
-                  setState(() {
-                    _showHistory = true;
-                  });
-                },
-                onSubmitted: _onSearch,
               ),
-              if (_showHistory && _searchHistory.isNotEmpty)
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('搜索历史'),
-                            TextButton(
-                              onPressed: () async {
-                                await SearchHistoryManager.clearSearchHistory();
-                                _loadSearchHistory();
-                              },
-                              child: const Text('清空'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: _searchHistory.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: const Icon(Icons.history),
-                            title: Text(_searchHistory[index]),
-                            onTap: () {
-                              _onSearch(_searchHistory[index]);
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-            ],
+              onTap: _showOverlay,
+              onSubmitted: _onSearch,
+            ),
           ),
         ),
         const SizedBox(width: 12),
@@ -185,7 +246,9 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
 
   @override
   void dispose() {
+    _hideOverlay();
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 }

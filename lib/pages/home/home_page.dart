@@ -53,19 +53,23 @@ class _HomePageState extends State<HomePage> {
       _isLoading = false;
     });
 
-    CharacterService.getCharacterList(
-      page: _currentPage,
-      pageSize: _pageSize,
-      searchParams: {
-        if (category != '推荐') 'category': category,
-        if (keyword != null && keyword.isNotEmpty) 'keyword': keyword,
-      },
-    ).then((result) {
-      setState(() {
-        _characters = result['data'] as List<Character>;
-        _hasMore = _characters.length < (result['total'] as int);
+    if (keyword != null && keyword.isNotEmpty) {
+      CharacterService.searchCharacters(keyword).then((characters) {
+        setState(() {
+          _characters = characters;
+          _hasMore = false;
+        });
       });
-    });
+    } else {
+      CharacterService.getCharacterListByCategory(category: category).then((
+        characters,
+      ) {
+        setState(() {
+          _characters = characters;
+          _hasMore = false;
+        });
+      });
+    }
   }
 
   Future<void> _loadMoreCharacters() async {
@@ -75,18 +79,14 @@ class _HomePageState extends State<HomePage> {
       _isLoading = true;
     });
 
-    final result = await CharacterService.getCharacterList(
-      page: _currentPage + 1,
-      pageSize: _pageSize,
-      searchParams: {
-        if (_currentCategory != '推荐') 'category': _currentCategory,
-      },
+    final characters = await CharacterService.getCharacterListByCategory(
+      category: _currentCategory,
     );
 
     setState(() {
       _currentPage++;
-      _characters.addAll(result['data'] as List<Character>);
-      _hasMore = _characters.length < (result['total'] as int);
+      _characters.addAll(characters);
+      _hasMore = false; // 暂时禁用分页加载
       _isLoading = false;
     });
   }

@@ -19,20 +19,21 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _handleLogout() async {
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('确认退出'),
-        content: const Text('确定要退出登录吗？'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('取消'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('确认退出'),
+            content: const Text('确定要退出登录吗？'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('取消'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text('确定'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('确定'),
-          ),
-        ],
-      ),
     );
 
     if (confirmed != true) return;
@@ -40,14 +41,14 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       await AuthService.logout();
       if (!mounted) return;
-      
+
       await context.read<UserProvider>().clearUser();
       Navigator.pushReplacementNamed(context, '/login');
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('退出失败: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('退出失败: $e')));
     }
   }
 
@@ -66,7 +67,8 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 ProfileHeader(
                   user: user,
-                  onEditAvatar: () => Navigator.pushNamed(context, '/profile/edit'),
+                  onEditAvatar:
+                      () => Navigator.pushNamed(context, '/profile/edit'),
                 ),
                 const SizedBox(height: 20),
                 ProfileMenu(onLogout: _handleLogout),

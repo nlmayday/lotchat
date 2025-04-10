@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sky/models/chat.dart';
+import 'package:sky/pages/chat/chat_page.dart';
 
 class ChatMessages extends StatelessWidget {
   final List<ChatMessage> messages;
@@ -8,39 +8,25 @@ class ChatMessages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      itemCount: messages.length,
-      reverse: true,
-      itemBuilder: (context, index) {
-        final message = messages[messages.length - 1 - index];
-        return MessageBubble(message: message);
-      },
+    return Column(
+      children:
+          messages.map((message) => _buildMessage(context, message)).toList(),
     );
   }
-}
 
-class MessageBubble extends StatelessWidget {
-  final ChatMessage message;
-
-  const MessageBubble({super.key, required this.message});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildMessage(BuildContext context, ChatMessage message) {
     return Align(
       alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (!message.isUser) ...[
               CircleAvatar(
+                backgroundImage: AssetImage(message.avatar!),
                 radius: 16,
-                backgroundImage: AssetImage(
-                  message.avatar ?? 'assets/images/default_avatar.png',
-                ),
               ),
               const SizedBox(width: 8),
             ],
@@ -48,30 +34,31 @@ class MessageBubble extends StatelessWidget {
               constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.7,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 color:
                     message.isUser
-                        ? Theme.of(context).primaryColor
-                        : Colors.white.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(20),
+                        ? const Color(0xFFFFD700) // 金黄色背景
+                        : const Color(0xFF333333), // 深灰色背景
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Text(
                 message.content,
                 style: TextStyle(
                   color: message.isUser ? Colors.black : Colors.white,
-                  fontSize: 16,
+                  fontSize: 15,
                 ),
               ),
             ),
             if (message.isUser) ...[
               const SizedBox(width: 8),
+              // 检查 ChatMessages 组件中的头像渲染代码
               CircleAvatar(
+                backgroundImage:
+                    message.avatar!.startsWith('http')
+                        ? NetworkImage(message.avatar!) as ImageProvider
+                        : AssetImage(message.avatar!),
                 radius: 16,
-                backgroundColor: Colors.white24,
-                backgroundImage: AssetImage(
-                  message.avatar ?? 'assets/images/default_avatar.png',
-                ),
               ),
             ],
           ],

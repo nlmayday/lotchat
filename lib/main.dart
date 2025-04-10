@@ -7,33 +7,19 @@ import 'package:sky/utils/theme.dart';
 import 'package:sky/pages/profile/profile_page.dart';
 import 'package:sky/pages/favorites/favorites_page.dart';
 import 'package:sky/pages/history/history_page.dart';
-import 'package:sky/pages/chat/chat_page.dart'; // 假设聊天页面路径为 chat_page.dart
+import 'package:sky/pages/chat/chat_page.dart';
 import 'package:sky/widgets/auth_guard.dart';
 import 'package:sky/pages/auth/login_page.dart';
 import 'package:sky/pages/auth/register_page.dart';
 import 'package:sky/pages/auth/forgot_password_page.dart';
 import 'package:sky/pages/wallet/recharge_page.dart';
 import 'package:sky/pages/wallet/recharge_history_page.dart';
+import 'package:sky/api/services/character_service.dart'; // 添加这行导入
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  final userProvider = UserProvider();
-await userProvider.loadUser();
-
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
-
-  runApp(
-    ChangeNotifierProvider.value(
-      value: userProvider,
-      child: const MyApp(),
-    ),
-  );
+  await CharacterService.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,0 +1,1604 @@
+{
+  "characters": [
+    {
+      "id": "1",
+      "name": "小美1",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 5,
+      "category": "知识",
+      "chatCount": 10123,
+      "rating": 4.1
+    },
+    {
+      "id": "2",
+      "name": "小智1",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 10,
+      "category": "热门",
+      "chatCount": 10246,
+      "rating": 4.2
+    },
+    {
+      "id": "3",
+      "name": "小萌1",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 15,
+      "category": "闲聊",
+      "chatCount": 10369,
+      "rating": 4.3
+    },
+    {
+      "id": "4",
+      "name": "小乐1",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 20,
+      "category": "治愈",
+      "chatCount": 10492,
+      "rating": 4.4
+    },
+    {
+      "id": "5",
+      "name": "小晴1",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 25,
+      "category": "知识",
+      "chatCount": 10615,
+      "rating": 4.5
+    },
+    {
+      "id": "6",
+      "name": "小雨1",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 30,
+      "category": "热门",
+      "chatCount": 10738,
+      "rating": 4.6
+    },
+    {
+      "id": "7",
+      "name": "小风1",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 35,
+      "category": "闲聊",
+      "chatCount": 10861,
+      "rating": 4.7
+    },
+    {
+      "id": "8",
+      "name": "小云1",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 40,
+      "category": "治愈",
+      "chatCount": 10984,
+      "rating": 4.8
+    },
+    {
+      "id": "9",
+      "name": "小月1",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 45,
+      "category": "知识",
+      "chatCount": 11107,
+      "rating": 4.9
+    },
+    {
+      "id": "10",
+      "name": "小冰2",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 50,
+      "category": "热门",
+      "chatCount": 11230,
+      "rating": 4.0
+    },
+    {
+      "id": "11",
+      "name": "小美2",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 55,
+      "category": "闲聊",
+      "chatCount": 11353,
+      "rating": 4.1
+    },
+    {
+      "id": "12",
+      "name": "小智2",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 60,
+      "category": "治愈",
+      "chatCount": 11476,
+      "rating": 4.2
+    },
+    {
+      "id": "13",
+      "name": "小萌2",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 65,
+      "category": "知识",
+      "chatCount": 11599,
+      "rating": 4.3
+    },
+    {
+      "id": "14",
+      "name": "小乐2",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 70,
+      "category": "热门",
+      "chatCount": 11722,
+      "rating": 4.4
+    },
+    {
+      "id": "15",
+      "name": "小晴2",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 75,
+      "category": "闲聊",
+      "chatCount": 11845,
+      "rating": 4.5
+    },
+    {
+      "id": "16",
+      "name": "小雨2",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 80,
+      "category": "治愈",
+      "chatCount": 11968,
+      "rating": 4.6
+    },
+    {
+      "id": "17",
+      "name": "小风2",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 85,
+      "category": "知识",
+      "chatCount": 12091,
+      "rating": 4.7
+    },
+    {
+      "id": "18",
+      "name": "小云2",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 90,
+      "category": "热门",
+      "chatCount": 12214,
+      "rating": 4.8
+    },
+    {
+      "id": "19",
+      "name": "小月2",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 95,
+      "category": "闲聊",
+      "chatCount": 12337,
+      "rating": 4.9
+    },
+    {
+      "id": "20",
+      "name": "小冰3",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 0,
+      "category": "治愈",
+      "chatCount": 12460,
+      "rating": 4.0
+    },
+    {
+      "id": "21",
+      "name": "小美3",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 5,
+      "category": "知识",
+      "chatCount": 12583,
+      "rating": 4.1
+    },
+    {
+      "id": "22",
+      "name": "小智3",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 10,
+      "category": "热门",
+      "chatCount": 12706,
+      "rating": 4.2
+    },
+    {
+      "id": "23",
+      "name": "小萌3",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 15,
+      "category": "闲聊",
+      "chatCount": 12829,
+      "rating": 4.3
+    },
+    {
+      "id": "24",
+      "name": "小乐3",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 20,
+      "category": "治愈",
+      "chatCount": 12952,
+      "rating": 4.4
+    },
+    {
+      "id": "25",
+      "name": "小晴3",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 25,
+      "category": "知识",
+      "chatCount": 13075,
+      "rating": 4.5
+    },
+    {
+      "id": "26",
+      "name": "小雨3",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 30,
+      "category": "热门",
+      "chatCount": 13198,
+      "rating": 4.6
+    },
+    {
+      "id": "27",
+      "name": "小风3",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 35,
+      "category": "闲聊",
+      "chatCount": 13321,
+      "rating": 4.7
+    },
+    {
+      "id": "28",
+      "name": "小云3",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 40,
+      "category": "治愈",
+      "chatCount": 13444,
+      "rating": 4.8
+    },
+    {
+      "id": "29",
+      "name": "小月3",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 45,
+      "category": "知识",
+      "chatCount": 13567,
+      "rating": 4.9
+    },
+    {
+      "id": "30",
+      "name": "小冰4",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 50,
+      "category": "热门",
+      "chatCount": 13690,
+      "rating": 4.0
+    },
+    {
+      "id": "31",
+      "name": "小美4",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 55,
+      "category": "闲聊",
+      "chatCount": 13813,
+      "rating": 4.1
+    },
+    {
+      "id": "32",
+      "name": "小智4",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 60,
+      "category": "治愈",
+      "chatCount": 13936,
+      "rating": 4.2
+    },
+    {
+      "id": "33",
+      "name": "小萌4",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 65,
+      "category": "知识",
+      "chatCount": 14059,
+      "rating": 4.3
+    },
+    {
+      "id": "34",
+      "name": "小乐4",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 70,
+      "category": "热门",
+      "chatCount": 14182,
+      "rating": 4.4
+    },
+    {
+      "id": "35",
+      "name": "小晴4",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 75,
+      "category": "闲聊",
+      "chatCount": 14305,
+      "rating": 4.5
+    },
+    {
+      "id": "36",
+      "name": "小雨4",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 80,
+      "category": "治愈",
+      "chatCount": 14428,
+      "rating": 4.6
+    },
+    {
+      "id": "37",
+      "name": "小风4",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 85,
+      "category": "知识",
+      "chatCount": 14551,
+      "rating": 4.7
+    },
+    {
+      "id": "38",
+      "name": "小云4",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 90,
+      "category": "热门",
+      "chatCount": 14674,
+      "rating": 4.8
+    },
+    {
+      "id": "39",
+      "name": "小月4",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 95,
+      "category": "闲聊",
+      "chatCount": 14797,
+      "rating": 4.9
+    },
+    {
+      "id": "40",
+      "name": "小冰5",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 0,
+      "category": "治愈",
+      "chatCount": 14920,
+      "rating": 4.0
+    },
+    {
+      "id": "41",
+      "name": "小美5",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 5,
+      "category": "知识",
+      "chatCount": 15043,
+      "rating": 4.1
+    },
+    {
+      "id": "42",
+      "name": "小智5",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 10,
+      "category": "热门",
+      "chatCount": 15166,
+      "rating": 4.2
+    },
+    {
+      "id": "43",
+      "name": "小萌5",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 15,
+      "category": "闲聊",
+      "chatCount": 15289,
+      "rating": 4.3
+    },
+    {
+      "id": "44",
+      "name": "小乐5",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 20,
+      "category": "治愈",
+      "chatCount": 15412,
+      "rating": 4.4
+    },
+    {
+      "id": "45",
+      "name": "小晴5",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 25,
+      "category": "知识",
+      "chatCount": 15535,
+      "rating": 4.5
+    },
+    {
+      "id": "46",
+      "name": "小雨5",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 30,
+      "category": "热门",
+      "chatCount": 15658,
+      "rating": 4.6
+    },
+    {
+      "id": "47",
+      "name": "小风5",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 35,
+      "category": "闲聊",
+      "chatCount": 15781,
+      "rating": 4.7
+    },
+    {
+      "id": "48",
+      "name": "小云5",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 40,
+      "category": "治愈",
+      "chatCount": 15904,
+      "rating": 4.8
+    },
+    {
+      "id": "49",
+      "name": "小月5",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 45,
+      "category": "知识",
+      "chatCount": 16027,
+      "rating": 4.9
+    },
+    {
+      "id": "50",
+      "name": "小冰6",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 50,
+      "category": "热门",
+      "chatCount": 16150,
+      "rating": 4.0
+    },
+    {
+      "id": "51",
+      "name": "小美6",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 55,
+      "category": "闲聊",
+      "chatCount": 16273,
+      "rating": 4.1
+    },
+    {
+      "id": "52",
+      "name": "小智6",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 60,
+      "category": "治愈",
+      "chatCount": 16396,
+      "rating": 4.2
+    },
+    {
+      "id": "53",
+      "name": "小萌6",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 65,
+      "category": "知识",
+      "chatCount": 16519,
+      "rating": 4.3
+    },
+    {
+      "id": "54",
+      "name": "小乐6",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 70,
+      "category": "热门",
+      "chatCount": 16642,
+      "rating": 4.4
+    },
+    {
+      "id": "55",
+      "name": "小晴6",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 75,
+      "category": "闲聊",
+      "chatCount": 16765,
+      "rating": 4.5
+    },
+    {
+      "id": "56",
+      "name": "小雨6",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 80,
+      "category": "治愈",
+      "chatCount": 16888,
+      "rating": 4.6
+    },
+    {
+      "id": "57",
+      "name": "小风6",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 85,
+      "category": "知识",
+      "chatCount": 17011,
+      "rating": 4.7
+    },
+    {
+      "id": "58",
+      "name": "小云6",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 90,
+      "category": "热门",
+      "chatCount": 17134,
+      "rating": 4.8
+    },
+    {
+      "id": "59",
+      "name": "小月6",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 95,
+      "category": "闲聊",
+      "chatCount": 17257,
+      "rating": 4.9
+    },
+    {
+      "id": "60",
+      "name": "小冰7",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 0,
+      "category": "治愈",
+      "chatCount": 17380,
+      "rating": 4.0
+    },
+    {
+      "id": "61",
+      "name": "小美7",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 5,
+      "category": "知识",
+      "chatCount": 17503,
+      "rating": 4.1
+    },
+    {
+      "id": "62",
+      "name": "小智7",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 10,
+      "category": "热门",
+      "chatCount": 17626,
+      "rating": 4.2
+    },
+    {
+      "id": "63",
+      "name": "小萌7",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 15,
+      "category": "闲聊",
+      "chatCount": 17749,
+      "rating": 4.3
+    },
+    {
+      "id": "64",
+      "name": "小乐7",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 20,
+      "category": "治愈",
+      "chatCount": 17872,
+      "rating": 4.4
+    },
+    {
+      "id": "65",
+      "name": "小晴7",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 25,
+      "category": "知识",
+      "chatCount": 17995,
+      "rating": 4.5
+    },
+    {
+      "id": "66",
+      "name": "小雨7",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 30,
+      "category": "热门",
+      "chatCount": 18118,
+      "rating": 4.6
+    },
+    {
+      "id": "67",
+      "name": "小风7",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 35,
+      "category": "闲聊",
+      "chatCount": 18241,
+      "rating": 4.7
+    },
+    {
+      "id": "68",
+      "name": "小云7",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 40,
+      "category": "治愈",
+      "chatCount": 18364,
+      "rating": 4.8
+    },
+    {
+      "id": "69",
+      "name": "小月7",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 45,
+      "category": "知识",
+      "chatCount": 18487,
+      "rating": 4.9
+    },
+    {
+      "id": "70",
+      "name": "小冰8",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 50,
+      "category": "热门",
+      "chatCount": 18610,
+      "rating": 4.0
+    },
+    {
+      "id": "71",
+      "name": "小美8",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 55,
+      "category": "闲聊",
+      "chatCount": 18733,
+      "rating": 4.1
+    },
+    {
+      "id": "72",
+      "name": "小智8",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 60,
+      "category": "治愈",
+      "chatCount": 18856,
+      "rating": 4.2
+    },
+    {
+      "id": "73",
+      "name": "小萌8",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 65,
+      "category": "知识",
+      "chatCount": 18979,
+      "rating": 4.3
+    },
+    {
+      "id": "74",
+      "name": "小乐8",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 70,
+      "category": "热门",
+      "chatCount": 19102,
+      "rating": 4.4
+    },
+    {
+      "id": "75",
+      "name": "小晴8",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 75,
+      "category": "闲聊",
+      "chatCount": 19225,
+      "rating": 4.5
+    },
+    {
+      "id": "76",
+      "name": "小雨8",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 80,
+      "category": "治愈",
+      "chatCount": 19348,
+      "rating": 4.6
+    },
+    {
+      "id": "77",
+      "name": "小风8",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 85,
+      "category": "知识",
+      "chatCount": 19471,
+      "rating": 4.7
+    },
+    {
+      "id": "78",
+      "name": "小云8",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 90,
+      "category": "热门",
+      "chatCount": 19594,
+      "rating": 4.8
+    },
+    {
+      "id": "79",
+      "name": "小月8",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 95,
+      "category": "闲聊",
+      "chatCount": 19717,
+      "rating": 4.9
+    },
+    {
+      "id": "80",
+      "name": "小冰9",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 0,
+      "category": "治愈",
+      "chatCount": 19840,
+      "rating": 4.0
+    },
+    {
+      "id": "81",
+      "name": "小美9",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 5,
+      "category": "知识",
+      "chatCount": 19963,
+      "rating": 4.1
+    },
+    {
+      "id": "82",
+      "name": "小智9",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 10,
+      "category": "热门",
+      "chatCount": 20086,
+      "rating": 4.2
+    },
+    {
+      "id": "83",
+      "name": "小萌9",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 15,
+      "category": "闲聊",
+      "chatCount": 20209,
+      "rating": 4.3
+    },
+    {
+      "id": "84",
+      "name": "小乐9",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 20,
+      "category": "治愈",
+      "chatCount": 20332,
+      "rating": 4.4
+    },
+    {
+      "id": "85",
+      "name": "小晴9",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 25,
+      "category": "知识",
+      "chatCount": 20455,
+      "rating": 4.5
+    },
+    {
+      "id": "86",
+      "name": "小雨9",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 30,
+      "category": "热门",
+      "chatCount": 20578,
+      "rating": 4.6
+    },
+    {
+      "id": "87",
+      "name": "小风9",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 35,
+      "category": "闲聊",
+      "chatCount": 20701,
+      "rating": 4.7
+    },
+    {
+      "id": "88",
+      "name": "小云9",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 40,
+      "category": "治愈",
+      "chatCount": 20824,
+      "rating": 4.8
+    },
+    {
+      "id": "89",
+      "name": "小月9",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 45,
+      "category": "知识",
+      "chatCount": 20947,
+      "rating": 4.9
+    },
+    {
+      "id": "90",
+      "name": "小冰10",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 50,
+      "category": "热门",
+      "chatCount": 21070,
+      "rating": 4.0
+    },
+    {
+      "id": "91",
+      "name": "小美10",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 55,
+      "category": "闲聊",
+      "chatCount": 21193,
+      "rating": 4.1
+    },
+    {
+      "id": "92",
+      "name": "小智10",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 60,
+      "category": "治愈",
+      "chatCount": 21316,
+      "rating": 4.2
+    },
+    {
+      "id": "93",
+      "name": "小萌10",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 65,
+      "category": "知识",
+      "chatCount": 21439,
+      "rating": 4.3
+    },
+    {
+      "id": "94",
+      "name": "小乐10",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 70,
+      "category": "热门",
+      "chatCount": 21562,
+      "rating": 4.4
+    },
+    {
+      "id": "95",
+      "name": "小晴10",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 75,
+      "category": "闲聊",
+      "chatCount": 21685,
+      "rating": 4.5
+    },
+    {
+      "id": "96",
+      "name": "小雨10",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 80,
+      "category": "治愈",
+      "chatCount": 21808,
+      "rating": 4.6
+    },
+    {
+      "id": "97",
+      "name": "小风10",
+      "description": "这是一个科技的AI助手，擅长知识类话题，能够为你提供专业的历史服务。",
+      "avatar": "assets/images/nv2.png",
+      "backgroundImage": "assets/images/nv2-banner.png",
+      "tags": [
+        "知识",
+        "学习",
+        "科技"
+      ],
+      "price": 85,
+      "category": "知识",
+      "chatCount": 21931,
+      "rating": 4.7
+    },
+    {
+      "id": "98",
+      "name": "小云10",
+      "description": "这是一个游戏的AI助手，擅长热门类话题，能够为你提供专业的音乐服务。",
+      "avatar": "assets/images/nv3.png",
+      "backgroundImage": "assets/images/nv3-banner.png",
+      "tags": [
+        "热门",
+        "趣味",
+        "娱乐"
+      ],
+      "price": 90,
+      "category": "热门",
+      "chatCount": 22054,
+      "rating": 4.8
+    },
+    {
+      "id": "99",
+      "name": "小月10",
+      "description": "这是一个生活的AI助手，擅长闲聊类话题，能够为你提供专业的日常服务。",
+      "avatar": "assets/images/nv4.png",
+      "backgroundImage": "assets/images/nv4-banner.png",
+      "tags": [
+        "闲聊",
+        "日常",
+        "搞笑"
+      ],
+      "price": 95,
+      "category": "闲聊",
+      "chatCount": 22177,
+      "rating": 4.9
+    },
+    {
+      "id": "100",
+      "name": "小冰11",
+      "description": "这是一个情感的AI助手，擅长治愈类话题，能够为你提供专业的倾听服务。",
+      "avatar": "assets/images/nv1.png",
+      "backgroundImage": "assets/images/nv1-banner.png",
+      "tags": [
+        "治愈",
+        "情感",
+        "倾听"
+      ],
+      "price": 0,
+      "category": "治愈",
+      "chatCount": 22300,
+      "rating": 4.0
+    }
+  ]
+}

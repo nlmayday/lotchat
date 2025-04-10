@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:sky/api/services/character_service.dart';
 import 'package:sky/models/character.dart';
-import 'package:sky/models/chat.dart';
 import 'package:sky/pages/chat/widgets/chat_app_bar.dart';
 import 'package:sky/pages/chat/widgets/chat_input.dart';
 import 'package:sky/pages/chat/widgets/chat_messages.dart';
-import 'package:sky/api/api_client.dart'; // 导入 ApiClient
-import 'dart:developer' as developer; // 导入 dart:developer
+import 'package:sky/providers/user_provider.dart';
+import 'package:provider/provider.dart';
+
+class ChatMessage {
+  final String id;
+  final String content;
+  final bool isUser;
+  final DateTime timestamp;
+  final String? backgroundImage;
+  final String? avatar;
+
+  ChatMessage({
+    required this.id,
+    required this.content,
+    required this.isUser,
+    required this.timestamp,
+    this.backgroundImage,
+    this.avatar,
+  });
+}
 
 class ChatPage extends StatefulWidget {
   final String characterId;
-
   const ChatPage({super.key, required this.characterId});
 
   @override
@@ -20,24 +36,24 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   late Future<Character> _characterFuture;
   final List<ChatMessage> _messages = [];
+  bool _isTyping = false;
   String? _currentBackground;
 
   @override
   void initState() {
     super.initState();
-    // 异步加载角色数据，并确保非空
-    _characterFuture = CharacterService.getCharacterById(
+    _characterFuture = _loadCharacter();
+  }
+
+  Future<Character> _loadCharacter() async {
+    final character = await CharacterService.getCharacterById(
       widget.characterId,
-    ).then((character) {
-      if (character == null) {
-        // 使用 dart:developer 的 log 函数记录日志
-        developer.log('Character not found for ID: ${widget.characterId}');
-        throw Exception('Character not found for ID: ${widget.characterId}');
-      }
-      // 角色数据加载成功后调用 _loadInitialMessage
-      _loadInitialMessage(character);
-      return character;
-    });
+    );
+    if (character == null) {
+      throw Exception('Character not found for ID: ${widget.characterId}');
+    }
+    _loadInitialMessage(character);
+    return character;
   }
 
   void _loadInitialMessage(Character character) {
@@ -52,8 +68,19 @@ class _ChatPageState extends State<ChatPage> {
     setState(() => _messages.add(welcome));
   }
 
-  void _handleSendMessage(String text, Character character) {
+  Future<void> _handleSendMessage(String text, Character character) async {
     if (text.trim().isEmpty) return;
+
+    // 获取用户信息
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    print('UserProvider: ${userProvider.toString()}');
+    print('Current User Data: ${userProvider.user}');
+    print('User ID: ${userProvider.user?.id}');
+
+    // 获取用户头像
+    final userAvatar =
+        userProvider.user?.avatar ?? 'assets/images/avatar_default.png';
+    print('User Avatar Path: $userAvatar'); // 添加这行来查看实际的头像路径
 
     final userMessage = ChatMessage(
       id: DateTime.now().toString(),
@@ -61,27 +88,96 @@ class _ChatPageState extends State<ChatPage> {
       timestamp: DateTime.now(),
       isUser: true,
       backgroundImage: character.backgroundImage,
-      avatar: character.avatar,
+      avatar: userAvatar,
     );
 
-    setState(() => _messages.add(userMessage));
-    // TODO: 发送消息到服务器并获取回复
+    setState(() {
+      _messages.add(userMessage);
+      _isTyping = true;
+    });
+
+    // 模拟AI思考和打字时间
+    await Future.delayed(const Duration(seconds: 1));
+
+    // 获取AI回复
+    final reply = await CharacterService.getChatReply(widget.characterId, text);
+
+    if (mounted) {
+      setState(() {
+        _isTyping = false;
+        _messages.add(
+          ChatMessage(
+            id: DateTime.now().toString(),
+            content: reply,
+            timestamp: DateTime.now(),
+            isUser: false,
+            backgroundImage: character.backgroundImage,
+            avatar: character.avatar,
+          ),
+        );
+      });
+    }
+  }
+
+  Widget _buildTypingIndicator(Character character) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end, // 改为底部对齐
+        children: [
+          CircleAvatar(
+            backgroundImage: AssetImage(character.avatar),
+            radius: 16,
+          ),
+          const SizedBox(width: 8),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: const Color(0xFF333333),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              // 使用Column布局
+              children: [
+                const SizedBox(height: 2),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                    3,
+                    (index) => Container(
+                      width: 6,
+                      height: 6,
+                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: FutureBuilder<Character>(
         future: _characterFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // 加载中...
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            // 错误处理
+          }
+          if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData) {
-            // 没有数据
+          }
+          if (!snapshot.hasData) {
             return const Center(child: Text('No character data available.'));
           }
 
@@ -103,7 +199,22 @@ class _ChatPageState extends State<ChatPage> {
               child: Column(
                 children: [
                   ChatAppBar(character: character),
-                  Expanded(child: ChatMessages(messages: _messages)),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: _messages.length + (_isTyping ? 1 : 0),
+                      reverse: true,
+                      itemBuilder: (context, index) {
+                        if (index == 0 && _isTyping) {
+                          return _buildTypingIndicator(character);
+                        }
+                        final messageIndex = _isTyping ? index - 1 : index;
+                        return ChatMessages(
+                          messages: [_messages[messageIndex]],
+                        );
+                      },
+                    ),
+                  ),
                   ChatInput(
                     onSendMessage:
                         (text) => _handleSendMessage(text, character),

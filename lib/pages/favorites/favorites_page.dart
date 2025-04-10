@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sky/models/character.dart'; // 假设有 Character 模型
-import 'package:sky/widgets/common_bottom_nav.dart';
+import 'package:sky/models/character.dart';
+import 'package:sky/data/character_data_manager.dart';
+import 'package:sky/pages/home/widgets/character_grid.dart';
+import 'package:sky/widgets/common_bottom_nav.dart'; // 添加这行
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -10,210 +12,196 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  int _currentIndex = 1; // 收藏页面索引为 1
-  final bool _isLoading = true;
-  bool selected = false;
+  final CharacterDataManager _dataManager = CharacterDataManager();
+  List<Character> _characters = [];
+  bool _isLoading = true;
+  int _currentIndex = 1; // 添加这行，表示当前是收藏页
 
-  // 模拟收藏数据
-  List<Character> _getMockFavorites() {
-    return [
-      Character(
-        id: '1',
-        name: '赛博朋克女孩',
-        description: '未来科技风格的虚拟伙伴',
-        avatar: 'assets/images/nv1.png',
-        backgroundImage: 'assets/images/nv1.png',
-        tags: ['科技'],
-        price: 500,
-        category: '科技',
-      ),
-      Character(
-        id: '2',
-        name: '机械天使',
-        description: '科技与艺术的完美融合',
-        avatar: 'assets/images/nv1.png',
-        backgroundImage: 'assets/images/nv1.png',
-        tags: ['艺术'],
-        price: 450,
-        category: '艺术',
-      ),
-    ];
+  @override
+  void initState() {
+    super.initState();
+    _loadFavorites();
+  }
+
+  Future<void> _loadFavorites() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    // TODO: 这里应该从本地存储或服务器获取收藏列表
+    // 暂时模拟一些数据
+    final allCharacters = await _dataManager.loadCharacters();
+    final favorites = allCharacters.take(5).toList(); // 模拟5个收藏
+
+    setState(() {
+      _characters = favorites;
+      _isLoading = false;
+    });
+  }
+
+  void _onCharacterTap(String id) {
+    Navigator.pushNamed(context, '/chat', arguments: id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF1A1A1A),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 80.0), // 防止底部溢出
-          child: Column(
-            children: [
-              // 头部：返回按钮和标题
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    const Text(
-                      '我的收藏',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // 筛选选项卡
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: [
-                    ChoiceChip(
-                      label: const Text('全部'),
-                      selected: true,
-                      onSelected: (selected) {},
-                      selectedColor: Colors.yellow[200],
-                      backgroundColor: Colors.white.withOpacity(0.1),
-                      labelStyle: TextStyle(
-                        color: selected ? Colors.black : Colors.white,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    ChoiceChip(
-                      label: const Text('最近'),
-                      selected: false,
-                      onSelected: (selected) {},
-                      selectedColor: Colors.yellow[200],
-                      backgroundColor: Colors.white.withOpacity(0.1),
-                      labelStyle: const TextStyle(color: Colors.white),
-                    ),
-                    const SizedBox(width: 10),
-                    ChoiceChip(
-                      label: const Text('热门'),
-                      selected: false,
-                      onSelected: (selected) {},
-                      selectedColor: Colors.yellow[200],
-                      backgroundColor: Colors.white.withOpacity(0.1),
-                      labelStyle: const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-              // 收藏列表
-              Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(16.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 0.7,
-                  ),
-                  itemCount: _getMockFavorites().length,
-                  itemBuilder: (context, index) {
-                    final character = _getMockFavorites()[index];
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      color: Colors.white.withOpacity(0.1),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+        child:
+            _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 标题
+                      const Row(
                         children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                            child: Image.asset(
-                              character.backgroundImage,
-                              height: 150,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  character.name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  character.description,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white.withOpacity(0.8),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.favorite,
-                                          size: 14,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '2.8k',
-                                          style: TextStyle(
-                                            color: Colors.white.withOpacity(
-                                              0.7,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.monetization_on,
-                                          size: 14,
-                                          color: Colors.yellow,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '${character.price}',
-                                          style: const TextStyle(
-                                            color: Colors.yellow,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                          Text(
+                            '我的收藏',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                    );
-                  },
+                      const SizedBox(height: 20),
+
+                      // 用户等级卡片
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '当前等级',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  'Lv.15',
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            Container(
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                              child: FractionallySizedBox(
+                                widthFactor: 0.75,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '已解锁角色: 12/20',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                                Text(
+                                  '距离下一级: 300经验',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // 筛选标签
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 20),
+                        child: Row(
+                          children: [
+                            _buildFilterTab('全部', true),
+                            const SizedBox(width: 10),
+                            _buildFilterTab('最近', false),
+                            const SizedBox(width: 10),
+                            _buildFilterTab('热门', false),
+                          ],
+                        ),
+                      ),
+
+                      // 角色网格
+                      _characters.isEmpty
+                          ? const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(40),
+                              child: Text(
+                                '暂无收藏的角色',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          )
+                          : CharacterGrid(
+                            characters: _characters,
+                            onCharacterTap: _onCharacterTap,
+                          ),
+
+                      // 加载更多
+                      if (_characters.isNotEmpty)
+                        Container(
+                          margin: const EdgeInsets.only(top: 15, bottom: 70),
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '加载更多 ↓',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
       ),
       bottomNavigationBar: CommonBottomNav(
         currentIndex: _currentIndex,
         onTap: (index) {
-          setState(() => _currentIndex = index);
           switch (index) {
             case 0:
               Navigator.pushReplacementNamed(context, '/home');
@@ -229,6 +217,23 @@ class _FavoritesPageState extends State<FavoritesPage> {
               break;
           }
         },
+      ),
+    );
+  }
+
+  Widget _buildFilterTab(String text, bool isActive) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color:
+            isActive
+                ? Theme.of(context).primaryColor
+                : Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(color: isActive ? Colors.black : Colors.white),
       ),
     );
   }

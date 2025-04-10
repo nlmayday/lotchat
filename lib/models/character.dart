@@ -6,9 +6,9 @@ class Character {
   final String backgroundImage;
   final List<String> tags;
   final int price;
+  final String category;
   final int chatCount;
   final double rating;
-  final String category;
 
   Character({
     required this.id,
@@ -18,23 +18,23 @@ class Character {
     required this.backgroundImage,
     required this.tags,
     required this.price,
-    this.chatCount = 0,
-    this.rating = 0.0,
     required this.category,
+    required this.chatCount,
+    required this.rating,
   });
 
   factory Character.fromJson(Map<String, dynamic> json) {
     return Character(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      avatar: json['avatar'],
-      backgroundImage: json['background_image'],
-      tags: List<String>.from(json['tags']),
-      price: json['price'],
-      chatCount: json['chat_count'] ?? 0,
-      rating: (json['rating'] ?? 0.0).toDouble(),
-      category: json['category'],
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      avatar: json['avatar'] as String,
+      backgroundImage: json['backgroundImage'] as String,
+      tags: (json['tags'] as List).map((e) => e as String).toList(),
+      price: json['price'] as int,
+      category: json['category'] as String,
+      chatCount: json['chatCount'] as int,
+      rating: (json['rating'] as num).toDouble(),
     );
   }
 
@@ -44,12 +44,12 @@ class Character {
       'name': name,
       'description': description,
       'avatar': avatar,
-      'background_image': backgroundImage,
+      'backgroundImage': backgroundImage,
       'tags': tags,
       'price': price,
-      'chat_count': chatCount,
-      'rating': rating,
       'category': category,
+      'chatCount': chatCount,
+      'rating': rating,
     };
   }
 }

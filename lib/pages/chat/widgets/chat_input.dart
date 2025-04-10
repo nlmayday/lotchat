@@ -10,31 +10,23 @@ class ChatInput extends StatefulWidget {
 }
 
 class _ChatInputState extends State<ChatInput> {
-  final _textController = TextEditingController();
-  bool _showSendButton = false;
+  final TextEditingController _controller = TextEditingController();
+  bool _canSend = false;
 
   @override
   void initState() {
     super.initState();
-    _textController.addListener(() {
+    _controller.addListener(() {
       setState(() {
-        _showSendButton = _textController.text.trim().isNotEmpty;
+        _canSend = _controller.text.trim().isNotEmpty;
       });
     });
   }
 
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
-
-  void _handleSend() {
-    final text = _textController.text.trim();
-    if (text.isNotEmpty) {
-      widget.onSendMessage(text);
-      _textController.clear();
-    }
+  void _handleSubmit() {
+    if (!_canSend) return;
+    widget.onSendMessage(_controller.text);
+    _controller.clear();
   }
 
   @override
@@ -42,55 +34,53 @@ class _ChatInputState extends State<ChatInput> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.2))),
       ),
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.mic_none),
+            icon: const Icon(Icons.add_circle_outline),
             onPressed: () {
-              // TODO: 实现语音输入
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.emoji_emotions_outlined),
-            onPressed: () {
-              // TODO: 显示表情选择器
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.image_outlined),
-            onPressed: () {
-              // TODO: 实现图片发送
+              // TODO: 实现添加更多功能
             },
           ),
           Expanded(
             child: TextField(
-              controller: _textController,
-              decoration: const InputDecoration(
-                hintText: '输入消息...',
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: '发送消息...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
               ),
-              maxLines: 5,
+              maxLines: 4,
               minLines: 1,
             ),
           ),
-          if (_showSendButton)
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_upward, color: Colors.black),
-                onPressed: _handleSend,
-              ),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: Icon(
+              Icons.send,
+              color: _canSend ? Theme.of(context).primaryColor : Colors.grey,
             ),
+            onPressed: _canSend ? _handleSubmit : null,
+          ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

@@ -25,10 +25,13 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/nv1.png
-    - assets/images/nv1-banner.png
     - assets/images/nv2.png
     - assets/images/nv3.png
     - assets/images/nv4.png
+    - assets/images/nv1-banner.png
+    - assets/images/nv2-banner.png
+    - assets/images/nv3-banner.png
+    - assets/images/nv4-banner.png
     - assets/images/avtor1.png
     - assets/images/avtor2.png
     - assets/images/logo.png
@@ -36,3 +39,4 @@ flutter:
     - assets/images/banner1.png
     - assets/images/banner2.png
     - assets/images/banner3.png
+    - lib/data/characters.json
